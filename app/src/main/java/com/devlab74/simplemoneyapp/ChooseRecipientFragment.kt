@@ -1,10 +1,13 @@
 package com.devlab74.simplemoneyapp
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.devlab74.simplemoneyapp.databinding.FragmentChooseRecipientBinding
@@ -36,7 +39,16 @@ class ChooseRecipientFragment : Fragment(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0!!.id) {
             binding.nextBtn.id -> {
-                navController.navigate(R.id.action_chooseRecipientFragment_to_specifyAmountFragment)
+                if (!TextUtils.isEmpty(binding.inputRecipient.text.toString())) {
+                    val bundle = bundleOf("recipient" to binding.inputRecipient.text.toString())
+
+                    navController.navigate(
+                            R.id.action_chooseRecipientFragment_to_specifyAmountFragment,
+                            bundle
+                    )
+                } else {
+                    Toast.makeText(activity, "Enter a Recipient", Toast.LENGTH_SHORT).show()
+                }
             }
             binding.cancelBtn.id -> requireActivity().onBackPressed()
         }
