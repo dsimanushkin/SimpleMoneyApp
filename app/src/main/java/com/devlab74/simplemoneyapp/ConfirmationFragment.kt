@@ -17,8 +17,7 @@ class ConfirmationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentConfirmationBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onDestroyView() {
